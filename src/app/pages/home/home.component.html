@@ -1,0 +1,49 @@
+<div class="row" style="height: 300px;">
+    <div class="col-6">
+        <div class="d-flex" style="z-index: 0; height: 50vh; width: 100%; align-items: center; justify-content: flex-end; flex-direction: column;">
+            <img style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://res.cloudinary.com/torre-technologies-co/image/upload/q_auto,c_fit,w_2000/v1593109931/dev/landing/uqngfnzme7cvvfovw8aw.jpg" alt="" sizes="" srcset="">
+        </div>
+        <div class="row">
+            <p class="slogan-home">Torre is the new professional network for remote and flexible work</p>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="row d-flex justify-content-center mt-5">
+            <img src="https://res.cloudinary.com/torre-technologies-co/image/upload/v1601512321/origin/bio/organizations/Torre_logo_small_uubm3e.png" alt="">
+        </div>
+        <div class="row text-center container justify-content-center d-flex">
+            <h2 class="amarillo m-5 text-center">Bienvenidos a <span style="color: hsla(0, 0%, 100%, .9);">torre Match</span></h2>
+            <p class="amarillo">Una propuesta de <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a>para ayudarte a encontrar las oportunidades profesionales que se ajustan a tus intereses</p>
+        </div>
+    </div>
+</div>
+<div class="row container m-5">
+    <p class="letra-pequena text-justify">En torre Match te ayudaremos a que, como usuario de <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a> puedas conocer aquellas oportunidades profesionales que se ajusten a tu
+        perfil detallado, para que puedas conocerla de primera mano y, si te parecen adecuadas, puedas postular a las mismas.</p>
+    <p class="letra-pequena text-justify">Para ello, contamos con una base de datos propia que contiene una gran parte de los usuarios y oportunidades profesionales publicadas en registrados en <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a>de
+        tal manera que puedas tener información de primera sobre aquellas que mejor se ajustan a tí.</p>
+    <div class="row mt-3 justify-content-center d-flex">
+        <p class="text-center">PARA COMENZAR A ENCONTRAR TUS OPORTUNIDADES ESPECÍFICAS INTRODUCE TU USERNAME DE TORRE: </p>
+
+        <form>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" [formControl]="user" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required>
+
+                    <div *ngIf="isSubmitted && !user.valid" class="text-danger">
+                        Por favor ingrese un username
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" (click)="onSubmit()">Ingresar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner></ngx-spinner>
