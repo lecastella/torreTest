@@ -11,8 +11,8 @@ export class TorreServicesService {
   ) { }
 
   getProfile(username: string): Promise<any> {
-    const url = 'https://torre.bio/api/bios/';
+    const url = 'https://torre.bio/api/bios';
 
-    return this.http.get<any>(`${url}/${username}`).toPromise();
+    return this.http.get(`${url}/${username}`).toPromise();
   }
 }

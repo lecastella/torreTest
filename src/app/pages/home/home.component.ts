@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SweetAlertService } from './../../core/services/sweet-alert.service';
 import { TorreServicesService } from './../../core/services/torre-services.service';
+import { DataService } from './../../core/services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +15,14 @@ export class HomeComponent implements OnInit {
   user = new FormControl('', Validators.required);
   isSubmitted = false;
   loading = false;
+  username: string;
 
   constructor(
-    private TorreServicesService: TorreServicesService,
+    private torreServicesService: TorreServicesService,
     private sweetAlertService: SweetAlertService,
-    private spinner: NgxSpinnerService
+    private dataService: DataService,
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,8 +31,11 @@ export class HomeComponent implements OnInit {
   async getProfile() {
     try {
       this.spinner.show();
-      const request = await this.TorreServicesService.getProfile(this.user.value);
+      const request = await this.torreServicesService.getProfile(this.user.value);
       this.spinner.hide();
+
+      this.setProfileData(request);
+      
     } catch (error) {
       this.spinner.hide();
       this.sweetAlertService.swalInfo(
@@ -35,6 +43,12 @@ export class HomeComponent implements OnInit {
         'error'
       );
     }
+  }
+
+  setProfileData(profile: any) {
+    console.log(profile.person.publicId);
+    this.dataService.updatedDataSelection(profile);
+    this.router.navigate(['/profile', profile.person.publicId]);
   }
 
   onSubmit() {
