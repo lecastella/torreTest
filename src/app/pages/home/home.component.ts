@@ -13,9 +13,9 @@ import { DataService } from './../../core/services/data.service';
 })
 export class HomeComponent implements OnInit {
   user = new FormControl('', Validators.required);
+  opportunity = new FormControl('', Validators.required);
   isSubmitted = false;
   loading = false;
-  username: string;
 
   constructor(
     private torreServicesService: TorreServicesService,
@@ -28,7 +28,21 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(tab: string) {
+    this.isSubmitted = true;
+
+    if (tab === 'username') {
+      this.getProfile();
+    } else {
+      this.getOpportunity();
+    }
+  }
+
   async getProfile() {
+    if (!this.user.valid) {
+      return
+    }
+
     try {
       this.spinner.show();
       const request = await this.torreServicesService.getProfile(this.user.value);
@@ -39,7 +53,7 @@ export class HomeComponent implements OnInit {
     } catch (error) {
       this.spinner.hide();
       this.sweetAlertService.swalInfo(
-        'Usuario no encontrado. Por favor, introduzca un usuario válido',
+        'Usuario no encontrado. Por favor, introduzca un usuario válido.',
         'error'
       );
     }
@@ -47,17 +61,32 @@ export class HomeComponent implements OnInit {
 
   setProfileData(profile: any) {
     this.dataService.updatedDataSelection(profile);
-    this.router.navigate(['/profile', profile.person.publicId]);
+    this.router.navigate(['/profile', this.user.value]);
   }
 
-  onSubmit() {
-    this.isSubmitted = true;
-
-    if (!this.user.valid) {
+  async getOpportunity() {
+    if (!this.opportunity.valid) {
       return
     }
 
-    this.getProfile();
+    try {
+      this.spinner.show();
+      const request = await this.torreServicesService.getOpportunity(this.opportunity.value);
+      this.spinner.hide();
+
+      this.setOpportunityData(request);
+    } catch (error) {
+      this.spinner.hide();
+      this.sweetAlertService.swalInfo(
+        'Oportunidad no encontrada. Por favor, intente nuevamente.',
+        'error'
+      );
+    }
+  }
+
+  setOpportunityData(opportunity: any) {
+    this.dataService.updatedDataSelection(opportunity);
+    this.router.navigate(['/oportunity', this.opportunity.value]);
   }
 
 }

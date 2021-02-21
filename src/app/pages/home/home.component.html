@@ -23,26 +23,63 @@
     <p class="letra-pequena text-justify">Para ello, contamos con una base de datos propia que contiene una gran parte de los usuarios y oportunidades profesionales publicadas en registrados en <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a>de
         tal manera que puedas tener información de primera sobre aquellas que mejor se ajustan a tí.</p>
     <div class="row mt-3 justify-content-center d-flex">
-        <p class="text-center">PARA COMENZAR A ENCONTRAR TUS OPORTUNIDADES ESPECÍFICAS INTRODUCE TU USERNAME DE TORRE: </p>
+        <p class="text-center">PARA COMENZAR A ENCONTRAR TUS OPORTUNIDADES ESPECÍFICAS INTRODUCE TU USERNAME U OPORTUNIDAD DE TORRE: </p>
+    </div>
 
-        <form>
-            <div class="row">
-                <div class="col-12">
-                    <input type="text" [formControl]="user" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required>
-
-                    <div *ngIf="isSubmitted && !user.valid" class="text-danger">
-                        Por favor ingrese un username
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#username">USERNAME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#opportunity">OPPORTUNITY</a>
+            </li>
+        </ul>
+    
+        <div class="tab-content">
+            <div class="tab-pane container active" id="username">
+                <form>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" [formControl]="user" class="form-control" 
+                            [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required>
+        
+                            <div *ngIf="isSubmitted && !user.valid" class="text-danger">
+                                Por favor ingrese un username
+                            </div>
+        
+                        </div>
                     </div>
-
-                </div>
+        
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" (click)="onSubmit('username')">Ingresar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <button type="button" (click)="onSubmit()">Ingresar</button>
-                </div>
+            
+            <div class="tab-pane container fade" id="opportunity">
+                <form>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" [formControl]="opportunity" class="form-control" 
+                            [ngClass]="{ 'is-invalid': isSubmitted && !opportunity.valid }" required>
+        
+                            <div *ngIf="isSubmitted && !opportunity.valid" class="text-danger">
+                                Por favor ingrese una oportunidad
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" (click)="onSubmit('opportunity')">Ingresar</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
