@@ -46,7 +46,6 @@ export class HomeComponent implements OnInit {
   }
 
   setProfileData(profile: any) {
-    console.log(profile.person.publicId);
     this.dataService.updatedDataSelection(profile);
     this.router.navigate(['/profile', profile.person.publicId]);
   }
