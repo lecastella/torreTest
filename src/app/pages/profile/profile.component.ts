@@ -10,6 +10,7 @@ import { DataService } from './../../core/services/data.service';
 export class ProfileComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   profile: any;
+  cardType = 'perfil'
 
   constructor(
     private dataService: DataService

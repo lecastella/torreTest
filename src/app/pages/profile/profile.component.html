@@ -31,14 +31,14 @@
 
         </div>
     </nav>
-    <h5 class="m-3">Bienvenido {{ profile.person.name }}</h5>
+    <h5 class="m-3">Wellcome {{ profile.person.name }}</h5>
     <div class="row">
-        <div class="col-4 m-5" style="margin-top: 80px !important;">
+        <div class="col-4 mt-5 ml-5" style="margin-top: 80px !important;">
             <div class="card" style="background-color: transparent !important; box-shadow: -2px -2px 6px #383b40,6px 6px 6px rgba(0,0,0,.24);">
                 <div class="profile-photo d-flex justify-content-center" style="margin-top: -80px;">
                     <img [src]="profile.person.pictureThumbnail" alt="">
                 </div>
-                <div class="card-body">
+                <div class="card-body pb-0">
 
                     <h5 class="card-title text-right mb-0">{{profile.person.name}}</h5>
                     <p class="text-right mb-3 text-muted">{{profile.person.location.name}}</p>
@@ -67,14 +67,104 @@
                                         <fa-icon [icon]="['fab', 'github']"></fa-icon>
                                     </a>
                                 </span>
+                        <span *ngSwitchCase="'linkedin'">
+                                    <a [href]="social.address" class="text-light ml-3" style="font-size: 24px;">
+                                        <fa-icon [icon]="['fab', 'linkedin']"></fa-icon>
+                                    </a>
+                                </span>
                         </span>
                         </span>
                     </div>
-
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
+                    <div class="row pt-2 mb-1" style="margin-top: 24px; border-top: 1px solid hsla(0,0%,100%,.24);">
+                        <div class="col-4">
+                            <button (click)="cardType='interest'" class="btn btn-sel">Interests</button>
+                            <button (click)="cardType='education'" class="btn btn-sel">Education</button>
+                            <button (click)="cardType='jobs'" class="btn btn-sel">Jobs</button>
+                            <button (click)="onClick()" class="btn btn-sel">Projects</button>
+                        </div>
+                        <div class="col-4">
+                            <button (click)="cardType='lang'" class="btn btn-sel">Languajes</button>
+                            <button (click)="onClick()" class="btn btn-sel">Experiences</button>
+                            <button (click)="onClick()" class="btn btn-sel">Opportunities</button>
+                        </div>
+                        <div class="col-4">
+                            <button (click)="cardType='str'" class="btn btn-sel">Strengths</button>
+                            <button (click)="onClick()" class="btn btn-sel">Awards</button>
+                            <button (click)="onClick()" class="btn btn-sel">Publications</button>
+                        </div>
+                        <!-- <h6 class="card-subtitle ml-3 mt-3 mb-3 text-muted">Jobs</h6>
+                        <div class="row ml-3">
+                            <p *ngFor="let job of profile.jobs" class="mb-3">
+                                {{job.name}} <span class="text-muted">at </span>
+                                <span *ngFor="let organization of job.organizations">{{ organization.name }}</span>
+                            </p>
+                        </div> -->
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'perfil'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your Profile</h4>
+            <div class="card" style="background-color: transparent !important; box-shadow: -2px -2px 6px #383b40,6px 6px 6px rgba(0,0,0,.24);">
+                <div class="card-body pb-1">
+                    <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">Summary</h6>
+                    <p *ngIf="profile.person.summaryOfBio" class="text-muted mt-2">{{profile.person.summaryOfBio}}</p>
+                    <p *ngIf="!profile.person.summaryOfBio" class="text-muted mt-2"> Add a summary at <a href="https://torre.co/"><span class="amarillo">torre.co </span></a></p>
+                    <div class="row mt-2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'interest'" class="col-7 mt-4">
+            <span>
+                <h4 class="text-muted" style="margin-bottom: 27px;">Your Interests</h4>
+                <small class="amarillo mb-2">Temporarily we are not able to validate your interests with the job opportunities published at <a href="https://torre.co/"><span style="color: hsla(0, 0%, 100%, .9);;">torre.co </span></a>
+            </small>
+            </span>
+            <div class="card-columns">
+                <div *ngFor="let interest of profile.interests" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{interest.name}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'lang'" class="col-7 mt-4">
+            <span>
+                <h4 class="text-muted" style="margin-bottom: 27px;">Your Languajes</h4>
+                <small class="amarillo mb-2">Temporarily we are not able to validate your langajes with the job opportunities published at <a href="https://torre.co/"><span style="color: hsla(0, 0%, 100%, .9);;">torre.co </span></a>
+            </small>
+            </span>
+            <div class="card-columns">
+                <div *ngFor="let language of profile.languages" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{language.language}}</h6>
+                        <p class="text-right mb-1 text-muted"> Fluency: <span style="color: hsla(0, 0%, 100%, .9);">{{language.fluency}}</span> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'str'" class="col-7 mt-4">
+            <span>
+                <h4 class="text-muted" style="margin-bottom: 27px;">Your Strengths</h4>
+            </span>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div *ngFor="let strength of profile.strengths" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{strength.name}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'jobs'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Profile</h4>
+            <h6 class="card-subtitle ml-3 mt-3 mb-3 text-muted">Jobs</h6>
+            <div class="row ml-3">
+                <p *ngFor="let job of profile.jobs" class="mb-3">
+                    {{job.name}} <span class="text-muted">at </span>
+                    <span *ngFor="let organization of job.organizations">{{ organization.name }}</span>
+                </p>
             </div>
         </div>
     </div>
