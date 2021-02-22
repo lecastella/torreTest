@@ -16,6 +16,7 @@ export class OpportunityComponent implements OnInit, OnDestroy {
   idOpportunity: string;
   opportunity: any;
   people: any;
+  matches = { compensations: [], skills: [], locations: [] };
 
   constructor(
     private dataService: DataService,
@@ -25,9 +26,10 @@ export class OpportunityComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
-    this.getOpportunityData();
-    this.getPeople();
+  async ngOnInit() {
+    await this.getOpportunityData();
+    await this.getPeople();
+    this.searchMatches();
   }
 
   ngOnDestroy(): void {
@@ -78,5 +80,52 @@ export class OpportunityComponent implements OnInit, OnDestroy {
         'error'
       );
     }
+  }
+
+  searchMatches() {
+    // Compensations
+    this.people['results'].map(people => {
+      if (Object.keys(people.compensations).length !== 0) {
+        if (people.compensations.employee) {
+          if (people.compensations.employee.periodicity === this.opportunity.compensation.periodicity) {
+            if (this.opportunity.compensation.minAmount <= people.compensations.employee.amount) {
+              this.matches['compensations'].push(people);
+            }
+          }
+        }
+
+        if (people.compensations.freelancer) {
+          if (people.compensations.freelancer.periodicity === this.opportunity.compensation.periodicity) {
+            if (this.opportunity.compensation.minAmount <= people.compensations.freelancer.amount) {
+              this.matches['compensations'].push(people);
+            }
+          }
+        }
+      }
+    })
+
+    // Skills
+    this.people['results'].map(people => {
+      if (Object.keys(people.skills).length !== 0) {
+        people.skills.map(skill => {
+          this.opportunity.strengths.map(strength => {
+            if (strength.name === skill.name) {
+              this.matches['skills'].push(people);
+            }
+          })
+        })
+      }
+    })
+
+    // Locations
+    this.people['results'].map(people => {
+      if (Object.keys(this.opportunity.place.location).length !== 0) {
+        this.opportunity.place.location.map(location => {
+          if (people.locationName === location.id) {
+            this.matches['locations'].push(people);
+          }
+        })
+      }
+    })
   }
 }
