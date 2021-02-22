@@ -41,7 +41,7 @@
                 <form>
                     <div class="row">
                         <div class="col-8">
-                            <input type="text" [formControl]="user" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required style="background-color: #383b40; border-radius: unset; border: none;">
+                            <input type="text" [formControl]="user" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required style="background-color: #383b40; border-radius: unset; border: none; color: hsla(0, 0%, 100%, .9);">
 
                             <div *ngIf="isSubmitted && !user.valid" class="text-danger">
                                 Por favor ingrese un username
@@ -58,7 +58,7 @@
                 <form>
                     <div class="row">
                         <div class="col-8">
-                            <input type="text" [formControl]="opportunity" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !opportunity.valid }" required style="background-color: #383b40; border-radius: unset; border: none;">
+                            <input type="text" [formControl]="opportunity" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !opportunity.valid }" required style="background-color: #383b40; border-radius: unset; border: none; color: hsla(0, 0%, 100%, .9);">
 
                             <div *ngIf="isSubmitted && !opportunity.valid" class="text-danger">
                                 Por favor ingrese una oportunidad

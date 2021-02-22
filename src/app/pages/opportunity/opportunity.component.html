@@ -10,19 +10,14 @@
                     <p class="text-right mb-3 text-muted">{{opportunity.opportunity}}</p>
                     <h6 *ngFor="let org of opportunity.organizations" class="card-subtitle text-right">Organization(s) name(s): {{org.name}}</h6>
                     <div class="row pt-2 mb-1" style="margin-top: 24px; border-top: 1px solid hsla(0,0%,100%,.24);">
-                        <div class="col-4">
+                        <div class="col-3">
                             <button (click)="cardOpp='details'" class="btn btn-sel">Details</button>
                         </div>
-                        <div class="col-4">
-                            <button (click)="cardOpp='locations'" class="btn btn-sel">Locations</button>
-                        </div>
-                        <div class="col-4">
-                            <button (click)="cardOpp='skills'" class="btn btn-sel">Skills</button>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-5">
                             <button (click)="cardOpp='compensations'" class="btn btn-sel">Compensations</button>
+                        </div>
+                        <div class="col-4">
+                            <button (click)="cardOpp='skills'" class="btn btn-sel">Strengths</button>
                         </div>
                     </div>
                 </div>
@@ -44,6 +39,54 @@
                 </div>
             </div>
         </div>
-
+        <div *ngIf="cardOpp === 'compensations'" class="col-7 mt-4">
+            <span>
+                <h4 class="text-muted" style="margin-bottom: 27px;">Opportunity Compensation</h4>
+                <p>Kind of opportunity: {{opportunity.opportunity}}</p>
+                <p>Min. amount compensation: {{opportunity.serpTags.baseSalary.value.minValue}} {{opportunity.serpTags.baseSalary.currency}} {{opportunity.serpTags.baseSalary.value.unitText}}</p>
+            </span>
+            <div class="card-columns" *ngIf="matches.compensations.length > 0">
+                <div *ngFor="let match of matches.compensations" class="card card-back">
+                    <div class="card-body ">
+                        <p>Person that matches this compensation: </p>
+                        <p>Name: {{match.name}}</p>
+                        <p>Profesional Profile: {{match.professionalHeadline}}</p>
+                        <a href="https://torre.co/jobs/{{match.username}}" class="btn btn-sm mr-3" style="background-color: #cddc39;" target="_blank">See at torre</a>
+                        <button type="button" class="btn btn-sm" style="background-color: rgba(144, 202, 249, 1);">Show Interest</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="matches.compensations.length === 0">
+                <p class="amarillo" style="text-transform: uppercase;">There are no matches for this oportunity compensation</p>
+            </div>
+        </div>
+        <div *ngIf="cardOpp === 'skills'" class="col-7 mt-4">
+            <span>
+                    <h4 class="text-muted" style="margin-bottom: 27px;">Opportunity Skills</h4>
+                </span>
+            <div class="card-columns">
+                <div *ngFor="let strength of opportunity.strengths" class="card card-back">
+                    <div class="card-body ">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{strength.name}}</h6>
+                        <div *ngIf="matches.skills.length > 0">
+                            <div *ngFor="let match of matches.skills">
+                                <div *ngFor="let skill of match.skills">
+                                    <div *ngIf="strength.name === skill.name" class="row pt-2 mb-3" style="margin-top: 5px; border-top: 1px solid hsla(0,0%,100%,.24);">
+                                        <small class="mb-2">
+                                              Person: <span class="amarillo"> {{match.name}} </span><span class="text-muted">from </span> <span>{{match.locationName}}</span> 
+                                            </small>
+                                        <small mb-2>
+                                                Profesional Profile: {{match.professionalHeadline}}
+                                            </small>
+                                        <a href="https://torre.co/{{match.username}}" class="btn btn-sm mr-3" style="background-color: #cddc39;" target="_blank">See at torre</a>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgba(144, 202, 249, 1);">Show Interest</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
