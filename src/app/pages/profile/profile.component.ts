@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
   username: string;
   profile: any;
-  cardType = 'perfil'
+  cardType = 'perfil';
   opportunities: any;
   matches = { locations: [], skills: [] };
 
@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }));
 
     this.subscription.add(this.dataService.data.subscribe(data => {
-      if(Object.keys(data).length === 0){
+      if (Object.keys(data).length === 0) {
         this.getProfile();
       } else {
         this.profile = data;

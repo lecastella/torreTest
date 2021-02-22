@@ -1,1 +1,49 @@
-<p>opportunity works!</p>
+<div *ngIf="opportunity">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">torre Match</a>
+    </nav>
+    <div class="row">
+        <div class="col-4 mt-5 ml-5">
+            <div class="card" style="background-color: transparent !important; box-shadow: -2px -2px 6px #383b40,6px 6px 6px rgba(0,0,0,.24);">
+                <div class="card-body pb-0">
+                    <h5 class="card-title text-right mb-0">{{opportunity.objective}}</h5>
+                    <p class="text-right mb-3 text-muted">{{opportunity.opportunity}}</p>
+                    <h6 *ngFor="let org of opportunity.organizations" class="card-subtitle text-right">Organization(s) name(s): {{org.name}}</h6>
+                    <div class="row pt-2 mb-1" style="margin-top: 24px; border-top: 1px solid hsla(0,0%,100%,.24);">
+                        <div class="col-4">
+                            <button (click)="cardOpp='details'" class="btn btn-sel">Details</button>
+                        </div>
+                        <div class="col-4">
+                            <button (click)="cardOpp='locations'" class="btn btn-sel">Locations</button>
+                        </div>
+                        <div class="col-4">
+                            <button (click)="cardOpp='skills'" class="btn btn-sel">Skills</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <button (click)="cardOpp='compensations'" class="btn btn-sel">Compensations</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardOpp === 'general'" class="col-7 mt-5">
+            <div class="card" style="background-color: transparent !important; box-shadow: -2px -2px 6px #383b40,6px 6px 6px rgba(0,0,0,.24);">
+                <img *ngFor="let att of opportunity.attachments" [src]="att.path" class="card-img" alt="">
+            </div>
+        </div>
+        <div *ngIf="cardOpp === 'details'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Opportunity Details</h4>
+            <div class="card-columns">
+                <div *ngFor="let detail of opportunity.details" class="card card-back">
+                    <div class="card-body">
+                        <p class="card-subtitle" style="color: rgba(144, 202, 249, 1); text-transform: capitalize;">{{detail.code}}</p>
+                        <p class="text-muted">{{detail.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

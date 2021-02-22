@@ -18,15 +18,15 @@
     </div>
 </div>
 <div class="row container m-5">
-    <p class="letra-pequena text-justify">En torre Match te ayudaremos a que, como usuario de <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a> puedas conocer aquellas oportunidades profesionales que se ajusten a tu
+    <p class="letra-pequena text-justify m-2-auto">En torre Match te ayudaremos a que, como usuario de <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a> puedas conocer aquellas oportunidades profesionales que se ajusten a tu
         perfil detallado, para que puedas conocerla de primera mano y, si te parecen adecuadas, puedas postular a las mismas.</p>
     <p class="letra-pequena text-justify">Para ello, contamos con una base de datos propia que contiene una gran parte de los usuarios y oportunidades profesionales publicadas en registrados en <a href="https://torre.co/" style="text-decoration:none;"><span style="color: hsla(0, 0%, 100%, .9);">torre.co </span></a>de
         tal manera que puedas tener información de primera sobre aquellas que mejor se ajustan a tí.</p>
-    <div class="row mt-3 justify-content-center d-flex">
-        <p class="text-center">PARA COMENZAR A ENCONTRAR TUS OPORTUNIDADES ESPECÍFICAS INTRODUCE TU USERNAME U OPORTUNIDAD DE TORRE: </p>
+    <div class="row mt-3 justify-content-center d-flex" style="margin: 0 auto;">
+        <p class="text-center">PARA COMENZAR A ENCONTRAR TUS OPORTUNIDADES ESPECÍFICAS INTRODUCE TU USERNAME U OPORTUNIDAD DE TORRE, SEGÚN EL CASO</p>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center d-flex" style="margin: 0 auto;">
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="pill" href="#username">USERNAME</a>
@@ -35,46 +35,37 @@
                 <a class="nav-link" data-toggle="pill" href="#opportunity">OPPORTUNITY</a>
             </li>
         </ul>
-    
+
         <div class="tab-content">
             <div class="tab-pane container active" id="username">
                 <form>
                     <div class="row">
-                        <div class="col-12">
-                            <input type="text" [formControl]="user" class="form-control" 
-                            [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required>
-        
+                        <div class="col-8">
+                            <input type="text" [formControl]="user" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !user.valid }" required style="background-color: #383b40; border-radius: unset; border: none;">
+
                             <div *ngIf="isSubmitted && !user.valid" class="text-danger">
                                 Por favor ingrese un username
                             </div>
-        
                         </div>
-                    </div>
-        
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" (click)="onSubmit('username')">Ingresar</button>
+                        <div class="col-4">
+                            <button type="button" (click)="onSubmit('username')" class="btn" style="background-color: #cddc39; color: rgba(0,0,0,.87); font-weight: 400; border-radius: unset;">INGRESAR</button>
                         </div>
                     </div>
                 </form>
             </div>
-            
+
             <div class="tab-pane container fade" id="opportunity">
                 <form>
                     <div class="row">
-                        <div class="col-12">
-                            <input type="text" [formControl]="opportunity" class="form-control" 
-                            [ngClass]="{ 'is-invalid': isSubmitted && !opportunity.valid }" required>
-        
+                        <div class="col-8">
+                            <input type="text" [formControl]="opportunity" class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && !opportunity.valid }" required style="background-color: #383b40; border-radius: unset; border: none;">
+
                             <div *ngIf="isSubmitted && !opportunity.valid" class="text-danger">
                                 Por favor ingrese una oportunidad
                             </div>
                         </div>
-                    </div>
-        
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="button" (click)="onSubmit('opportunity')">Ingresar</button>
+                        <div class="col-4">
+                            <button type="button" (click)="onSubmit('opportunity')" class="btn" style="background-color: #cddc39; color: rgba(0,0,0,.87); font-weight: 400; border-radius: unset;">INGRESAR</button>
                         </div>
                     </div>
                 </form>

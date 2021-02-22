@@ -1,35 +1,6 @@
 <div *ngIf="profile">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">torre Match</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-
-        </div>
     </nav>
     <h5 class="m-3">Wellcome {{ profile.person.name }}</h5>
     <div class="row">
@@ -80,25 +51,16 @@
                             <button (click)="cardType='interest'" class="btn btn-sel">Interests</button>
                             <button (click)="cardType='education'" class="btn btn-sel">Education</button>
                             <button (click)="cardType='jobs'" class="btn btn-sel">Jobs</button>
-                            <button (click)="onClick()" class="btn btn-sel">Projects</button>
                         </div>
                         <div class="col-4">
                             <button (click)="cardType='lang'" class="btn btn-sel">Languajes</button>
-                            <button (click)="onClick()" class="btn btn-sel">Experiences</button>
-                            <button (click)="onClick()" class="btn btn-sel">Opportunities</button>
+                            <button (click)="cardType='publications'" class="btn btn-sel">Publications</button>
+                            <button (click)="cardType='location'" class="btn btn-sel">Location</button>
                         </div>
                         <div class="col-4">
                             <button (click)="cardType='str'" class="btn btn-sel">Strengths</button>
-                            <button (click)="onClick()" class="btn btn-sel">Awards</button>
-                            <button (click)="onClick()" class="btn btn-sel">Publications</button>
+                            <button (click)="cardType='awards'" class="btn btn-sel">Awards</button>
                         </div>
-                        <!-- <h6 class="card-subtitle ml-3 mt-3 mb-3 text-muted">Jobs</h6>
-                        <div class="row ml-3">
-                            <p *ngFor="let job of profile.jobs" class="mb-3">
-                                {{job.name}} <span class="text-muted">at </span>
-                                <span *ngFor="let organization of job.organizations">{{ organization.name }}</span>
-                            </p>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -110,8 +72,13 @@
                     <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">Summary</h6>
                     <p *ngIf="profile.person.summaryOfBio" class="text-muted mt-2">{{profile.person.summaryOfBio}}</p>
                     <p *ngIf="!profile.person.summaryOfBio" class="text-muted mt-2"> Add a summary at <a href="https://torre.co/"><span class="amarillo">torre.co </span></a></p>
-                    <div class="row mt-2">
-
+                    <div class="mt-2">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">Interests</h6>
+                        <div class="row">
+                            <div *ngFor="let opportunity of profile.opportunities" class="col-3 mt-2" style="text-transform: uppercase;">
+                                {{opportunity.interest}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,24 +116,91 @@
             <span>
                 <h4 class="text-muted" style="margin-bottom: 27px;">Your Strengths</h4>
             </span>
-            <div class="row row-cols-1 row-cols-md-2">
+            <div class="card-columns">
                 <div *ngFor="let strength of profile.strengths" class="card card-back">
-                    <div class="card-body">
+                    <div class="card-body ">
                         <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{strength.name}}</h6>
+                        <div *ngIf="matches.skills.length > 0">
+                            <div *ngFor="let match of matches.skills">
+                                <div *ngFor="let skill of match.skills">
+                                    <div *ngIf="strength.name === skill.name; else notice" class="row pt-2 mb-1" style="margin-top: 5px; border-top: 1px solid hsla(0,0%,100%,.24);">
+                                        <small class="mb-2">
+                                          Oportunity: <span class="amarillo"> {{match.objective}} </span><span class="text-muted">at </span> <span *ngFor="let org of match.organizations">{{org.name}}</span> 
+                                        </small>
+                                        <a href="https://torre.co/jobs/{{match.id}}" class="btn btn-sm mr-3" style="background-color: #cddc39;" target="_blank">See at torre</a>
+                                        <button type="button" class="btn btn-sm" style="background-color: rgba(144, 202, 249, 1);">Show Interest</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'education'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your Education</h4>
+            <div *ngFor="let edu of profile.education" class="card card-back mb-3">
+                <div class="card-body">
+                    <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{edu.name}}</h6>
+                    <p *ngFor="let org of edu.organizations" class="text-right mb-1 text-muted">{{org.name}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="cardType === 'publications'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your Experience</h4>
+            <div class="card-columns">
+                <div *ngFor="let pub of profile.publications" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{pub.name}}</h6>
+                        <p *ngFor="let org of pub.organizations" class="text-right mb-1">{{org.name}}</p>
+                        <p class="text-right mb-1 text-muted">{{pub.fromMonth}}, {{pub.fromYear}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'awards'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your Awards</h4>
+            <div class="card-columns">
+                <div *ngFor="let award of profile.awards" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{award.name}}</h6>
+                        <p *ngFor="let org of award.organizations" class="text-right mb-1">{{org.name}}</p>
+                        <p class="text-right mb-1 text-muted">{{award.fromMonth}}, {{award.fromYear}}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="cardType === 'jobs'" class="col-7 mt-4">
-            <h4 class="text-muted" style="margin-bottom: 27px;">Profile</h4>
-            <h6 class="card-subtitle ml-3 mt-3 mb-3 text-muted">Jobs</h6>
-            <div class="row ml-3">
-                <p *ngFor="let job of profile.jobs" class="mb-3">
-                    {{job.name}} <span class="text-muted">at </span>
-                    <span *ngFor="let organization of job.organizations">{{ organization.name }}</span>
-                </p>
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your Jobs</h4>
+            <div class="card-columns">
+                <div *ngFor="let job of profile.jobs" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">{{job.name}}</h6>
+                        <p *ngFor="let organization of job.organizations" class="mb-1 amarillo">{{ organization.name }}</p>
+                        <p class="text-right mb-1">
+                            <span class="text-muted">from </span>{{job.fromMonth}}, {{job.fromYear}}
+                        </p>
+                        <p *ngIf="job.toMonth" class="text-right mb-1">
+                            <span class="text-muted">to </span>{{job.toMonth}}, {{job.toYear}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="cardType === 'location'" class="col-7 mt-4">
+            <h4 class="text-muted" style="margin-bottom: 27px;">Your actual location is: {{profile.person.location.country}}</h4>
+            <h5 class="amarillo">There are {{matches.locations.length}} job opportunities at your location</h5>
+            <div class="card-columns">
+                <div *ngFor="let match of matches.locations" class="card card-back">
+                    <div class="card-body">
+                        <h6 class="card-subtitle" style="color: rgba(144, 202, 249, 1);">Oportunity: <span class="amarillo"> {{match.objective}} </span> </h6>
+                        <p *ngFor="let org of match.organizations" class="text-right mb-1"><span class="text-muted">at </span>{{org.name}}</p>
+                        <a href="https://torre.co/jobs/{{match.id}}" class="btn btn-sm mr-3" style="background-color: #cddc39;" target="_blank">See at torre</a>
+                        <button type="button" class="btn btn-sm" style="background-color: rgba(144, 202, 249, 1);">Show Interest</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>

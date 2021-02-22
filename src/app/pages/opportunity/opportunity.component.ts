@@ -17,6 +17,7 @@ export class OpportunityComponent implements OnInit, OnDestroy {
   opportunity: any;
   people: any;
   matches = { compensations: [], skills: [], locations: [] };
+  cardOpp = 'general';
 
   constructor(
     private dataService: DataService,
@@ -55,6 +56,7 @@ export class OpportunityComponent implements OnInit, OnDestroy {
       this.spinner.show();
       const request = await this.torreServicesService.getOpportunity(this.idOpportunity);
       this.opportunity = request;
+      console.log(this.opportunity);
       this.spinner.hide();
 
     } catch (error) {
