@@ -15,13 +15,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { OpportunityComponent } from './pages/opportunity/opportunity.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProfileComponent,
-    OpportunityComponent
+    OpportunityComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
