@@ -1,0 +1,45 @@
+torre.co
+Technical Test Report
+Name: Luis Eliseo Castellano
+Date: feb 22, 2021
+Task Description:
+?Please show us your strengths/skills by building anything you'd like using data from Torre.
+
+The goal is for us to get an idea of your skills/strengths in the areas of web development, software architecture, algorithms, innovation, strategic thinking, autonomy, learning, attention to detail, and communication. If you join our team, you'll be working on the full stack. As such, we'll be evaluating your potential in both front and back end development.
+
+You can access these endpoints:
+- GET https://torre.bio/api/bios/$username (gets bio information of $username)
+- GET https://torre.co/api/opportunities/$id (gets job information of $id)
+- POST https://search.torre.co/opportunities/_search/?[offset=$offset&size=$size&aggregate=$aggregate] and https://search.torre.co/people/_search/?[offset=$offset&size=$size&aggregate=$aggregate] (search for jobs and people in general).
+If you need examples of how they work, you can check the page network requests in your browser when retrieving or modifying information.
+
+Create a search, redesign the genome, redesign the job listings, perform data analysis, develop new functionality, etc. Long story short: anything you would like to build.?
+
+Proposal Description:
+I had the idea of developing a web application that, by consuming user information and torre.co job opportunities, could make comparisons between them to find specific matches based on the profiles, interests and preferences described by users as well as those configured from job opportunities.
+That?s so, cause although torre.co have already have recommendations, those are made based on the joining of all of the criteria available, not detailing anything for when someone wants to see the specific recommendations for each one of their preferences and compare, in such a way that they can have a better overview of the job possibilities offered by the platform according to their genome.
+App Construction 
+As for development of the application, first of all, an analysis of the information that could be accessed with the use of the endpoints provided for the test was carried out. The analysis results were: 
+* With the GET endpoint https://torre.bio/api/bios/$username --- effectively you can get bio information of $username. The $username is visible in the slug of each user in torre.co. 
+* GET https://torre.co/api/opportunities/$id obtains $ids job information. This $id can also be easily found on the platform 
+* POST https://search.torre.co/opportunities/_search and https://search.torre.co/people/_search returns data set corresponding to 10 opportunities and users of the platform, respectively. The specific information of each user and / or opportunity way more limited than that obtained by making the query individually with one of the two GET resources already described. 
+From a thorough analysis of the specific characteristics of each of the data provided by each one of these four tools, I concluded that, recommendations for job opportunities that can be generated from each user?s profile information and the structure of the data returned by the POSTs, are limited only to their strengths and their location 
+Regarding the recommendations that can be built based on the opportunities with respect to the users provided from the People API - POST, I came to the conclusion that they could be generated only for the required skills and the opportunity salary range offered / required. 
+From there, the construction of the application was addressed using Angular 11.0.7, rxjs 6.6.3, tupescript 4.0.7, bootstrap 4.6.0, @ fortawesome / angular-fontawesome 0.8.2 and associated libraries, sweetalert2 10.15.5 between other libraries supported by node 12.16.1 and npm 6.14.9.
+The app has 3 views:
+- ?home?, the principal one, with a form through which the user has to type a USERNAME or an opportunity ID, as for initializing the search, after selecting the according option, fron two disposed to do so.
+-  ?profile?, which offers information about torre?s user profile, ordered in a way that betters the use on screen space regarding with the torre.co actual genoma view, and also including specific opportunities recommendations for the above descripted cases.
+- ?opportunities?, similar to the ?profile? one, but focusing in the specific opportunities description and recommendations.
+
+The project also includes a routing module, one component and 3 services that can be studied at the GitHub public repository in https://github.com/lecastella/torreTest
+The project has been deployed in firebase.google.com and can be checked at the URL: https://torrematch-d646c.web.app/home 
+For the development of the whole test XX hours where invested, distributed as follows:
+Endpoints testing and data analysis: 6+ hours
+App and development activities design and projection: 2+ hours (with several reviews through the whole process)
+Project general building and libraries addition: 3+ hours
+Angular services, routing, components and TS modules development: 8-10 hours
+Views build and styling: 6+ h
+Testing: 2+ h
+Deployment: 1h
+Report writing: 1h
+
