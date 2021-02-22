@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private torreServicesService: TorreServicesService,
     private sweetAlertService: SweetAlertService,
     private spinner: NgxSpinnerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   async ngOnInit() {
@@ -106,4 +106,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     })
   }
+
 }
