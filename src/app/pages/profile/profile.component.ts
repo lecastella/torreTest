@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profile: any;
   cardType = 'perfil'
   opportunities: any;
+  matches = { locations: [], skills: [] };
 
   constructor(
     private dataService: DataService,
@@ -26,9 +27,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit(): void {
-    this.getProfileData();
-    this.getOpportunities();
+  async ngOnInit() {
+    await this.getProfileData();
+    await this.getOpportunities();
+    this.searchMatches();
   }
 
   ngOnDestroy(): void {
@@ -70,7 +72,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const request = await this.torreServicesService.getOpportunities();
       this.opportunities = request;
       this.spinner.hide();
-
     } catch (error) {
       this.spinner.hide();
       this.sweetAlertService.swalInfo(
@@ -78,5 +79,31 @@ export class ProfileComponent implements OnInit, OnDestroy {
         'error'
       );
     }
+  }
+
+  searchMatches() {
+    // Locations
+    this.opportunities['results'].map(opportunity => {
+      if (Object.keys(opportunity.locations).length !== 0) {
+        opportunity.locations.map(location => {
+          if (location === this.profile.person.location.country) {
+            this.matches['locations'].push(opportunity);
+          }
+        })
+      }
+    })
+
+    // Skills
+    this.opportunities['results'].map(opportunity => {
+      if (Object.keys(opportunity.skills).length !== 0) {
+        opportunity.skills.map(skill => {
+          this.profile.strengths.map(strength => {
+            if (strength.name === skill.name) {
+              this.matches['skills'].push(opportunity);
+            }
+          })
+        })
+      }
+    })
   }
 }
